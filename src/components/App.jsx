@@ -2,9 +2,10 @@ import { Routes, Route } from "react-router-dom";
 import { useState, lazy, Suspense } from "react";
 import { Container, Header, Link } from "./App.styled";
 
-const Home = lazy(() => import('./Home/Home'));
-const Movies = lazy(() => import('./Movies/Movies'))
-const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
+const Home = lazy(() => import('../pages/Home'));
+const Movies = lazy(() => import('../pages/Movies'))
+const MovieDetails = lazy(() => import('../pages/MovieDetails'));
+const Loader = lazy(() => import('./Loader/Loader'));
 const Cast = lazy(() => import('./Cast/Cast'));
 const Reviews = lazy(() => import('./Reviews/Reviews'));
 
@@ -24,7 +25,7 @@ export const App = () => {
         <Link to="/movies">Movies</Link>
        </nav>
       </Header>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={Loader}>
         <Routes>
       <Route path="/" element={<Home onMovieDetails={selectMovie}></Home>} />
         <Route path="/movies" element={<Movies onMovieDetails={selectMovie} />} />
@@ -36,7 +37,6 @@ export const App = () => {
       <Route path="*" element={<Home />} />
       </Routes>
       </Suspense>
-      
     </Container>
   );
 };
